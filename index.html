@@ -17,6 +17,15 @@
             font-family: 'Inter', sans-serif;
             overflow: hidden;
             background-color: #000;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #root {
+            height: 100%;
+            width: 100%;
         }
 
         /* --- MODERN SCROLLBAR DESIGN --- */
@@ -43,14 +52,6 @@
         .custom-scrollbar {
             scrollbar-width: thin;
             scrollbar-color: #ec4899 transparent;
-        }
-
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
         }
 
         @keyframes pulse-neon {
@@ -92,5 +93,6 @@
 </head>
 <body class="bg-black text-white">
     <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
 </body>
 </html>
