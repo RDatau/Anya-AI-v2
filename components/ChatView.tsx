@@ -402,10 +402,10 @@ const ChatView: React.FC<ChatViewProps> = ({
   );
 
   return (
-    <div className="w-full h-full flex flex-col p-2 md:p-6 max-w-6xl mx-auto relative overflow-hidden" onDragOver={e => { e.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}>
+    <div className="w-full h-full flex flex-col relative overflow-hidden p-3 md:p-6" onDragOver={e => { e.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}>
       
-      {/* HEADER: KEKUNCI DI ATAS (SHRINK-0) */}
-      <header className="flex items-center justify-between p-3 md:p-4 rounded-full mb-4 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 shrink-0" style={glassStyles}>
+      {/* HEADER: TETAP DI ATAS (SHRINK-0) DAN MELAYANG (ROUNDED-FULL) */}
+      <header className="flex items-center justify-between p-3 md:p-4 rounded-full mb-4 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 shrink-0 z-50 w-full max-w-4xl mx-auto" style={glassStyles}>
         <div className="flex items-center gap-3 md:gap-4">
           <button onClick={onOpenSidebar} className="p-2 md:p-3 hover:bg-white/10 rounded-full transition-all"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg></button>
           <div className="relative group/avatar cursor-pointer" onClick={() => setShowProfilePreview(true)}>
@@ -423,8 +423,8 @@ const ChatView: React.FC<ChatViewProps> = ({
         </div>
       </header>
 
-      {/* BODY CHAT: FLEX-1 (SCROLLABLE AREA) */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-6 px-2 mb-4 custom-scrollbar">
+      {/* BODY CHAT: FLEX-1 (AREA SCROLLABLE) */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-6 px-2 md:px-4 py-2 custom-scrollbar">
         {activeThread.map((m, idx) => (
           <div key={m.id} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'} animate-in slide-in-from-bottom-2 duration-300`}>
             <div className={`relative group/bubble max-w-[85%] p-5 shadow-2xl transition-all duration-300 ${m.role === 'user' ? 'bg-pink-500/90 rounded-[30px] rounded-tr-none' : 'rounded-[30px] rounded-tl-none'} ${loadingAudioId === m.id ? 'animate-pulse-neon' : ''}`} style={m.role === 'agent' ? glassStyles : {}}>
@@ -472,8 +472,8 @@ const ChatView: React.FC<ChatViewProps> = ({
         {isTyping && ( <div className="flex justify-start"><div className="rounded-[30px] rounded-tl-none p-5 flex flex-col gap-2 shadow-2xl min-w-[180px]" style={glassStyles}><div className="flex gap-3 items-center"><div className="flex gap-2"><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce"></div><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce [animation-delay:0.2s]"></div><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce [animation-delay:0.4s]"></div></div><span className="text-xs font-black text-pink-400 italic">{loadingStatus}</span></div></div></div> )}
       </div>
 
-      {/* FOOTER: KEKUNCI DI BAWAH (SHRINK-0) */}
-      <div className="flex flex-col gap-2 w-full max-w-2xl mx-auto shrink-0 px-2 pb-2">
+      {/* FOOTER: TETAP DI BAWAH (SHRINK-0) DAN MELAYANG (ROUNDED-FULL) */}
+      <div className="flex flex-col gap-2 w-full max-w-2xl mx-auto shrink-0 px-2 mt-4">
         {attachedFiles.length > 0 && (
           <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar p-3 bg-white/5 backdrop-blur-3xl rounded-[30px] border border-white/10 animate-in slide-in-from-bottom-4 duration-300">
             {attachedFiles.map((file, i) => (
@@ -481,7 +481,7 @@ const ChatView: React.FC<ChatViewProps> = ({
             ))}
           </div>
         )}
-        <footer className="relative flex items-center gap-3 p-1.5 md:p-2 rounded-full shadow-[0_15px_35px_rgba(0,0,0,0.4)] transition-all mb-2 group shrink-0" style={glassStyles}>
+        <footer className="relative flex items-center gap-3 p-2 rounded-full shadow-[0_15px_35px_rgba(0,0,0,0.4)] transition-all group shrink-0" style={glassStyles}>
           <label className="p-3 md:p-3.5 hover:bg-white/10 rounded-full cursor-pointer transition-all active:scale-90 flex items-center justify-center">
             <input type="file" className="hidden" multiple accept="image/*,video/*,audio/*,.pdf,.txt" onChange={e => handleFiles(e.target.files)} />
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
@@ -503,13 +503,11 @@ const ChatView: React.FC<ChatViewProps> = ({
               <button onClick={() => downloadMedia(config.profilePic!, `${getSafeAgentName()}_profile.png`, 'image/png')} className="bg-pink-500/80 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-2xl hover:bg-pink-500 hover:scale-110 active:scale-95 transition-all border border-white/30" title="Download">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0L8 8m4-4v12" /></svg>
               </button>
-              {/* CAMERA BUTTON (UPLOAD) */}
-              <button onClick={() => profileInputRef.current?.click()} className="bg-purple-600/80 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-2xl hover:bg-purple-600 hover:scale-110 active:scale-95 transition-all border border-white/30" title="Ganti Foto (Ambil/Upload)">
+              <button onClick={() => profileInputRef.current?.click()} className="bg-purple-600/80 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-2xl hover:bg-purple-600 hover:scale-110 active:scale-95 transition-all border border-white/30" title="Ganti Foto">
                 <input type="file" ref={profileInputRef} className="hidden" accept="image/*" onChange={handleProfilePicChange} />
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
               </button>
-              {/* RESET TO DEFAULT BUTTON */}
-              <button onClick={() => setConfig({ ...config, profilePic: defaultProfilePic })} className="bg-blue-600/80 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-2xl hover:bg-blue-600 hover:scale-110 active:scale-95 transition-all border border-white/30" title="Kembali ke Default">
+              <button onClick={() => setConfig({ ...config, profilePic: defaultProfilePic })} className="bg-blue-600/80 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-2xl hover:bg-blue-600 hover:scale-110 active:scale-95 transition-all border border-white/30" title="Reset Default">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
               </button>
             </div>
@@ -520,19 +518,15 @@ const ChatView: React.FC<ChatViewProps> = ({
         </div>
       )}
 
-      {/* MODAL PREVIEW MEDIA (TIDAK DIUBAH) */}
+      {/* PREVIEW MEDIA (TETAP SAMA) */}
       {previewMedia && (
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl animate-in fade-in duration-300" onClick={() => setPreviewMedia(null)}>
           <div className="relative max-w-4xl w-full flex flex-col items-center gap-6 animate-in zoom-in duration-500" onClick={e => e.stopPropagation()}>
             <div className="w-full flex justify-between items-center bg-white/5 backdrop-blur-xl px-6 py-4 rounded-[25px] border border-white/10 shadow-2xl mb-2">
-              <div className="flex items-center gap-3">
-                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60 truncate max-w-[200px]">{previewMedia.name}</p>
-              </div>
-              <div className="flex gap-2">
-                 <button onClick={() => setPreviewMedia(null)} className="p-3 bg-white/10 hover:bg-red-500 rounded-2xl text-white transition-all active:scale-90 border border-white/10 group">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
-                 </button>
-              </div>
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/60 truncate max-w-[200px]">{previewMedia.name}</p>
+              <button onClick={() => setPreviewMedia(null)} className="p-3 bg-white/10 hover:bg-red-500 rounded-2xl text-white transition-all active:scale-90 border border-white/10">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
             </div>
             <div className="w-full rounded-[40px] overflow-hidden border border-white/10 bg-black/40 flex items-center justify-center">
                {previewMedia.mimeType.startsWith('image/') ? (
@@ -540,9 +534,7 @@ const ChatView: React.FC<ChatViewProps> = ({
                ) : previewMedia.mimeType.startsWith('video/') ? (
                  <video src={previewMedia.data} controls autoPlay className="w-full h-auto max-h-[70vh]" />
                ) : (
-                 <div className="py-20 flex flex-col items-center gap-6">
-                    <p className="text-white/40 font-black uppercase tracking-[0.2em] text-sm">Preview Tidak Tersedia</p>
-                 </div>
+                 <div className="py-20 flex flex-col items-center gap-6 text-white/40 font-black uppercase tracking-[0.2em] text-sm">Preview Tidak Tersedia</div>
                )}
             </div>
           </div>

@@ -51,7 +51,7 @@ const App: React.FC = () => {
       try {
         await dbService.init();
 
-        // 1. Cek Migrasi dari LocalStorage (jika user punya data lama)
+        // 1. Cek Migrasi dari LocalStorage
         const oldConfig = localStorage.getItem('anya_config');
         const oldMessages = localStorage.getItem('anya_messages');
         const oldActiveId = localStorage.getItem('anya_active_id');
@@ -59,7 +59,6 @@ const App: React.FC = () => {
         const oldHistory = localStorage.getItem('anya_history');
 
         if (oldConfig || oldMessages || oldSessions || oldHistory) {
-          console.log("Migrasi data ke IndexedDB dimulai...");
           if (oldConfig) await dbService.saveConfig(JSON.parse(oldConfig));
           if (oldMessages) await dbService.saveMessages(JSON.parse(oldMessages));
           if (oldActiveId) await dbService.saveActiveMessageId(oldActiveId);
@@ -70,7 +69,7 @@ const App: React.FC = () => {
           keysToRemove.forEach(k => localStorage.removeItem(k));
         }
 
-        // 2. Load data dari IndexedDB ke State
+        // 2. Load data dari IndexedDB
         const [savedConfig, savedMessages, savedActiveId, savedSessions, savedHistory] = await Promise.all([
           dbService.getConfig(),
           dbService.getMessages(),
@@ -164,20 +163,15 @@ const App: React.FC = () => {
 
   if (!isDbReady) {
     return (
-      <div className="h-[100dvh] w-screen bg-black flex flex-col items-center justify-center gap-6">
-        <div className="relative">
-          <div className="w-16 h-16 border-4 border-pink-500/10 border-t-pink-500 rounded-full animate-spin"></div>
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-2 h-2 bg-pink-500 rounded-full animate-ping"></div>
-          </div>
-        </div>
-        <p className="text-pink-500 font-black uppercase text-[10px] tracking-[0.5em] animate-pulse text-center">Menghubungkan Database...</p>
+      <div className="h-full w-full bg-black flex flex-col items-center justify-center gap-6">
+        <div className="w-12 h-12 border-4 border-pink-500/10 border-t-pink-500 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="relative h-[100dvh] w-screen overflow-hidden flex flex-col">
+    <div className="relative h-full w-full overflow-hidden flex flex-col">
+      {/* Background Layer */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${config.background})` }}
@@ -201,9 +195,10 @@ const App: React.FC = () => {
         onReset={resetAll}
       />
 
-      <main className="relative z-10 w-full h-full flex flex-col items-center overflow-hidden">
+      {/* Main Content: Terkunci di atas menggunakan flex-col */}
+      <main className="relative z-10 w-full h-full flex flex-col overflow-hidden">
         {appState === AppState.SETUP && (
-          <div className="w-full h-full flex items-center justify-center p-4">
+          <div className="flex-1 flex items-center justify-center p-4">
             <SetupView 
               config={config} 
               setConfig={setConfig} 
