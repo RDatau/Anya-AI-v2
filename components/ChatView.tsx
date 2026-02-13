@@ -402,28 +402,29 @@ const ChatView: React.FC<ChatViewProps> = ({
   );
 
   return (
-    <div className="w-full h-[100dvh] flex flex-col p-4 md:p-8 max-w-6xl mx-auto relative overflow-hidden" onDragOver={e => { e.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}>
-      {/* HEADER TERKUNCI */}
-      <header className="flex items-center justify-between p-4 rounded-full mb-6 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 shrink-0" style={glassStyles}>
-        <div className="flex items-center gap-4">
-          <button onClick={onOpenSidebar} className="p-3 hover:bg-white/10 rounded-full transition-all"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg></button>
+    <div className="w-full h-full flex flex-col p-2 md:p-6 max-w-6xl mx-auto relative overflow-hidden" onDragOver={e => { e.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}>
+      
+      {/* HEADER: KEKUNCI DI ATAS (SHRINK-0) */}
+      <header className="flex items-center justify-between p-3 md:p-4 rounded-full mb-4 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 shrink-0" style={glassStyles}>
+        <div className="flex items-center gap-3 md:gap-4">
+          <button onClick={onOpenSidebar} className="p-2 md:p-3 hover:bg-white/10 rounded-full transition-all"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg></button>
           <div className="relative group/avatar cursor-pointer" onClick={() => setShowProfilePreview(true)}>
-            <img src={config.profilePic || ''} className="w-12 h-12 rounded-full object-cover border-2 border-white/20 shadow-md transition-transform group-hover/avatar:scale-110 active:scale-95" alt="Avatar" />
-            <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-black animate-pulse"></div>
+            <img src={config.profilePic || ''} className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover border-2 border-white/20 shadow-md transition-transform group-hover/avatar:scale-110 active:scale-95" alt="Avatar" />
+            <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-black animate-pulse"></div>
           </div>
           <div>
-            <h2 className="font-bold text-lg leading-tight tracking-tight text-white">{config.name}</h2>
-            <p className="text-[10px] text-green-400 font-black uppercase tracking-widest">Online</p>
+            <h2 className="font-bold text-sm md:text-lg leading-tight tracking-tight text-white">{config.name}</h2>
+            <p className="text-[8px] md:text-[10px] text-green-400 font-black uppercase tracking-widest">Online</p>
           </div>
         </div>
         <div className="flex gap-2 items-center">
-          <button onClick={onEdit} className="p-3 bg-white/5 hover:bg-white/20 rounded-full transition-all border border-white/10 text-pink-400"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924-1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></button>
-          <button onClick={onCall} className="px-6 py-3 bg-gradient-to-br from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 rounded-full font-black transition-all text-sm uppercase shadow-lg shadow-pink-500/30 active:scale-95 border border-white/10">Call</button>
+          <button onClick={onEdit} className="p-2 md:p-3 bg-white/5 hover:bg-white/20 rounded-full transition-all border border-white/10 text-pink-400"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924-1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg></button>
+          <button onClick={onCall} className="px-4 md:px-6 py-2 md:py-3 bg-gradient-to-br from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 rounded-full font-black transition-all text-[10px] md:text-sm uppercase shadow-lg shadow-pink-500/30 active:scale-95 border border-white/10">Call</button>
         </div>
       </header>
 
-      {/* BODY CHAT FLEXIBEL */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-6 px-2 mb-6 custom-scrollbar">
+      {/* BODY CHAT: FLEX-1 (SCROLLABLE AREA) */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-6 px-2 mb-4 custom-scrollbar">
         {activeThread.map((m, idx) => (
           <div key={m.id} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'} animate-in slide-in-from-bottom-2 duration-300`}>
             <div className={`relative group/bubble max-w-[85%] p-5 shadow-2xl transition-all duration-300 ${m.role === 'user' ? 'bg-pink-500/90 rounded-[30px] rounded-tr-none' : 'rounded-[30px] rounded-tl-none'} ${loadingAudioId === m.id ? 'animate-pulse-neon' : ''}`} style={m.role === 'agent' ? glassStyles : {}}>
@@ -471,7 +472,7 @@ const ChatView: React.FC<ChatViewProps> = ({
         {isTyping && ( <div className="flex justify-start"><div className="rounded-[30px] rounded-tl-none p-5 flex flex-col gap-2 shadow-2xl min-w-[180px]" style={glassStyles}><div className="flex gap-3 items-center"><div className="flex gap-2"><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce"></div><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce [animation-delay:0.2s]"></div><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce [animation-delay:0.4s]"></div></div><span className="text-xs font-black text-pink-400 italic">{loadingStatus}</span></div></div></div> )}
       </div>
 
-      {/* FOOTER TERKUNCI */}
+      {/* FOOTER: KEKUNCI DI BAWAH (SHRINK-0) */}
       <div className="flex flex-col gap-2 w-full max-w-2xl mx-auto shrink-0 px-2 pb-2">
         {attachedFiles.length > 0 && (
           <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar p-3 bg-white/5 backdrop-blur-3xl rounded-[30px] border border-white/10 animate-in slide-in-from-bottom-4 duration-300">
@@ -480,16 +481,17 @@ const ChatView: React.FC<ChatViewProps> = ({
             ))}
           </div>
         )}
-        <footer className="relative flex items-center gap-3 p-2 rounded-full shadow-[0_15px_35px_rgba(0,0,0,0.4)] transition-all mb-4 group shrink-0" style={glassStyles}>
-          <label className="p-3.5 hover:bg-white/10 rounded-full cursor-pointer transition-all active:scale-90 flex items-center justify-center">
+        <footer className="relative flex items-center gap-3 p-1.5 md:p-2 rounded-full shadow-[0_15px_35px_rgba(0,0,0,0.4)] transition-all mb-2 group shrink-0" style={glassStyles}>
+          <label className="p-3 md:p-3.5 hover:bg-white/10 rounded-full cursor-pointer transition-all active:scale-90 flex items-center justify-center">
             <input type="file" className="hidden" multiple accept="image/*,video/*,audio/*,.pdf,.txt" onChange={e => handleFiles(e.target.files)} />
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
           </label>
-          <input type="text" placeholder={`Bisikin sesuatu ke ${config.name}...`} className="flex-1 bg-transparent outline-none py-3.5 text-sm font-semibold text-white placeholder:text-white/20" value={inputText} onChange={e => setInputText(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSend()} />
-          <button onClick={() => handleSend()} disabled={(!inputText.trim() && attachedFiles.length === 0) || isTyping} className="p-3.5 bg-gradient-to-br from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 rounded-full transition-all active:scale-95 disabled:opacity-20 shadow-lg shadow-pink-500/20 border border-white/10 flex items-center justify-center mr-0.5"><svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white translate-x-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg></button>
+          <input type="text" placeholder={`Bisikin sesuatu ke ${config.name}...`} className="flex-1 bg-transparent outline-none py-2 md:py-3.5 text-xs md:text-sm font-semibold text-white placeholder:text-white/20" value={inputText} onChange={e => setInputText(e.target.value)} onKeyDown={e => e.key === 'Enter' && handleSend()} />
+          <button onClick={() => handleSend()} disabled={(!inputText.trim() && attachedFiles.length === 0) || isTyping} className="p-3 md:p-3.5 bg-gradient-to-br from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 rounded-full transition-all active:scale-95 disabled:opacity-20 shadow-lg shadow-pink-500/20 border border-white/10 flex items-center justify-center mr-0.5"><svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 text-white translate-x-0.5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg></button>
         </footer>
       </div>
 
+      {/* LOGIKA MODAL PROFIL (TIDAK DIUBAH) */}
       {showProfilePreview && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/90 backdrop-blur-3xl animate-in fade-in duration-300" onClick={() => setShowProfilePreview(false)}>
           <div className="relative max-w-lg w-full aspect-square animate-in zoom-in fade-in duration-500 delay-150" onClick={e => e.stopPropagation()}>
@@ -518,6 +520,7 @@ const ChatView: React.FC<ChatViewProps> = ({
         </div>
       )}
 
+      {/* MODAL PREVIEW MEDIA (TIDAK DIUBAH) */}
       {previewMedia && (
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 bg-black/95 backdrop-blur-3xl animate-in fade-in duration-300" onClick={() => setPreviewMedia(null)}>
           <div className="relative max-w-4xl w-full flex flex-col items-center gap-6 animate-in zoom-in duration-500" onClick={e => e.stopPropagation()}>
@@ -531,7 +534,6 @@ const ChatView: React.FC<ChatViewProps> = ({
                  </button>
               </div>
             </div>
-
             <div className="w-full rounded-[40px] overflow-hidden border border-white/10 bg-black/40 flex items-center justify-center">
                {previewMedia.mimeType.startsWith('image/') ? (
                  <img src={previewMedia.data} className="w-full h-auto max-h-[70vh] object-contain" />

@@ -66,7 +66,6 @@ const App: React.FC = () => {
           if (oldSessions) await dbService.saveSessions(JSON.parse(oldSessions));
           if (oldHistory) await dbService.saveCallHistory(JSON.parse(oldHistory));
           
-          // Hapus data lama agar tidak duplikat dan memberatkan browser
           const keysToRemove = ['anya_config', 'anya_messages', 'anya_active_id', 'anya_sessions', 'anya_history'];
           keysToRemove.forEach(k => localStorage.removeItem(k));
         }
@@ -86,7 +85,6 @@ const App: React.FC = () => {
         if (savedSessions) setSessions(savedSessions);
         if (savedHistory) setCallHistory(savedHistory);
 
-        // Jika sudah ada pesan, langsung masuk ke ChatView
         if (savedMessages && savedMessages.length > 0) {
           setAppState(AppState.CHAT);
         }
@@ -100,7 +98,6 @@ const App: React.FC = () => {
     initApp();
   }, []);
 
-  // AUTO-SAVE (Berjalan di background saat state berubah)
   useEffect(() => { if (isDbReady) dbService.saveConfig(config); }, [config, isDbReady]);
   useEffect(() => { if (isDbReady) dbService.saveMessages(messages); }, [messages, isDbReady]);
   useEffect(() => { if (isDbReady) dbService.saveActiveMessageId(activeMessageId); }, [activeMessageId, isDbReady]);
@@ -174,16 +171,13 @@ const App: React.FC = () => {
             <div className="w-2 h-2 bg-pink-500 rounded-full animate-ping"></div>
           </div>
         </div>
-        <div className="text-center">
-          <p className="text-pink-500 font-black uppercase text-[10px] tracking-[0.5em] animate-pulse">Menghubungkan Database...</p>
-          <p className="text-white/20 text-[8px] mt-2 font-bold uppercase tracking-widest">Optimizing Memory Storage</p>
-        </div>
+        <p className="text-pink-500 font-black uppercase text-[10px] tracking-[0.5em] animate-pulse text-center">Menghubungkan Database...</p>
       </div>
     );
   }
 
   return (
-    <div className="relative h-[100dvh] w-screen overflow-hidden flex flex-col items-center justify-center">
+    <div className="relative h-[100dvh] w-screen overflow-hidden flex flex-col">
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${config.background})` }}
@@ -207,15 +201,17 @@ const App: React.FC = () => {
         onReset={resetAll}
       />
 
-      <main className="relative z-10 w-full h-full flex flex-col items-center justify-center overflow-hidden">
+      <main className="relative z-10 w-full h-full flex flex-col items-center overflow-hidden">
         {appState === AppState.SETUP && (
-          <SetupView 
-            config={config} 
-            setConfig={setConfig} 
-            onStart={() => setAppState(AppState.CHAT)} 
-            onReset={resetAll} 
-            onClose={messages.length > 0 ? () => setAppState(AppState.CHAT) : undefined}
-          />
+          <div className="w-full h-full flex items-center justify-center p-4">
+            <SetupView 
+              config={config} 
+              setConfig={setConfig} 
+              onStart={() => setAppState(AppState.CHAT)} 
+              onReset={resetAll} 
+              onClose={messages.length > 0 ? () => setAppState(AppState.CHAT) : undefined}
+            />
+          </div>
         )}
         {appState === AppState.CHAT && (
           <ChatView 
