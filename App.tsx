@@ -167,7 +167,7 @@ const App: React.FC = () => {
 
   if (!isDbReady) {
     return (
-      <div className="h-screen w-screen bg-black flex flex-col items-center justify-center gap-6">
+      <div className="h-[100dvh] w-screen bg-black flex flex-col items-center justify-center gap-6">
         <div className="relative">
           <div className="w-16 h-16 border-4 border-pink-500/10 border-t-pink-500 rounded-full animate-spin"></div>
           <div className="absolute inset-0 flex items-center justify-center">
@@ -183,7 +183,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden flex flex-col items-center justify-center">
+    <div className="relative h-[100dvh] w-screen overflow-hidden flex flex-col items-center justify-center">
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700"
         style={{ backgroundImage: `url(${config.background})` }}

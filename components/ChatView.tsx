@@ -402,7 +402,8 @@ const ChatView: React.FC<ChatViewProps> = ({
   );
 
   return (
-    <div className="w-full h-full flex flex-col p-4 md:p-8 max-w-6xl mx-auto relative" onDragOver={e => { e.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}>
+    <div className="w-full h-[100dvh] flex flex-col p-4 md:p-8 max-w-6xl mx-auto relative overflow-hidden" onDragOver={e => { e.preventDefault(); setIsDragging(true); }} onDragLeave={() => setIsDragging(false)} onDrop={e => { e.preventDefault(); setIsDragging(false); handleFiles(e.dataTransfer.files); }}>
+      {/* HEADER TERKUNCI */}
       <header className="flex items-center justify-between p-4 rounded-full mb-6 shadow-[0_10px_30px_rgba(0,0,0,0.3)] transition-all duration-300 shrink-0" style={glassStyles}>
         <div className="flex items-center gap-4">
           <button onClick={onOpenSidebar} className="p-3 hover:bg-white/10 rounded-full transition-all"><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg></button>
@@ -421,6 +422,7 @@ const ChatView: React.FC<ChatViewProps> = ({
         </div>
       </header>
 
+      {/* BODY CHAT FLEXIBEL */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto space-y-6 px-2 mb-6 custom-scrollbar">
         {activeThread.map((m, idx) => (
           <div key={m.id} className={`flex flex-col ${m.role === 'user' ? 'items-end' : 'items-start'} animate-in slide-in-from-bottom-2 duration-300`}>
@@ -469,7 +471,8 @@ const ChatView: React.FC<ChatViewProps> = ({
         {isTyping && ( <div className="flex justify-start"><div className="rounded-[30px] rounded-tl-none p-5 flex flex-col gap-2 shadow-2xl min-w-[180px]" style={glassStyles}><div className="flex gap-3 items-center"><div className="flex gap-2"><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce"></div><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce [animation-delay:0.2s]"></div><div className="w-2.5 h-2.5 bg-pink-500 rounded-full animate-bounce [animation-delay:0.4s]"></div></div><span className="text-xs font-black text-pink-400 italic">{loadingStatus}</span></div></div></div> )}
       </div>
 
-      <div className="flex flex-col gap-2 w-full max-w-2xl mx-auto shrink-0 px-2">
+      {/* FOOTER TERKUNCI */}
+      <div className="flex flex-col gap-2 w-full max-w-2xl mx-auto shrink-0 px-2 pb-2">
         {attachedFiles.length > 0 && (
           <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar p-3 bg-white/5 backdrop-blur-3xl rounded-[30px] border border-white/10 animate-in slide-in-from-bottom-4 duration-300">
             {attachedFiles.map((file, i) => (
@@ -477,7 +480,7 @@ const ChatView: React.FC<ChatViewProps> = ({
             ))}
           </div>
         )}
-        <footer className="relative flex items-center gap-3 p-2 rounded-full shadow-[0_15px_35px_rgba(0,0,0,0.4)] transition-all mb-4 group" style={glassStyles}>
+        <footer className="relative flex items-center gap-3 p-2 rounded-full shadow-[0_15px_35px_rgba(0,0,0,0.4)] transition-all mb-4 group shrink-0" style={glassStyles}>
           <label className="p-3.5 hover:bg-white/10 rounded-full cursor-pointer transition-all active:scale-90 flex items-center justify-center">
             <input type="file" className="hidden" multiple accept="image/*,video/*,audio/*,.pdf,.txt" onChange={e => handleFiles(e.target.files)} />
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
