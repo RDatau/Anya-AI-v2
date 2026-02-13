@@ -24,7 +24,6 @@
             position: fixed;
             top: 0;
             left: 0;
-            touch-action: none; /* Mencegah pull-to-refresh dan bounce scroll */
         }
 
         #root {
@@ -52,8 +51,7 @@
         .custom-scrollbar {
             scrollbar-width: thin;
             scrollbar-color: #ec4899 transparent;
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling di iOS */
-            touch-action: pan-y; /* Mengizinkan scroll hanya di sumbu Y */
+            -webkit-overflow-scrolling: touch;
         }
 
         @keyframes pulse-neon {
